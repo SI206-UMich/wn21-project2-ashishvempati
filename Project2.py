@@ -242,16 +242,27 @@ class TestCases(unittest.TestCase):
     def test_summarize_best_books(self):
         # call summarize_best_books and save it to a variable
 
+        base_path = os.path.abspath(os.path.dirname(__file__))
+        full_path = os.path.join(base_path, 'best_books_2020.htm')
+        best = summarize_best_books(full_path)
+
         # check that we have the right number of best books (20)
 
+        self.assertEqual(len(best), 20)
+
             # assert each item in the list of best books is a tuple
+        for book in best:
+            self.assertEqual(type(book), tuple)
 
             # check that each tuple has a length of 3
+            self.assertEqual(len(book), 3)
 
         # check that the first tuple is made up of the following 3 strings:'Fiction', "The Midnight Library", 'https://www.goodreads.com/choiceawards/best-fiction-books-2020'
+        self.assertEqual(best[0], ('Fiction', "The Midnight Library", 'https://www.goodreads.com/choiceawards/best-fiction-books-2020'))
 
         # check that the last tuple is made up of the following 3 strings: 'Picture Books', 'A Beautiful Day in the Neighborhood: The Poetry of Mister Rogers', 'https://www.goodreads.com/choiceawards/best-picture-books-2020'
-        pass
+        self.assertEqual(best[-1], ('Picture Books', 'Antiracist Baby', 'https://www.goodreads.com/choiceawards/best-picture-books-2020'))
+    
 
 
     def test_write_csv(self):
